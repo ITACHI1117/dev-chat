@@ -11,14 +11,13 @@ function SignUp() {
     user,
     username,
     phone,
-    imageUrl,
     error,
     setEmail,
     setPassword,
     submit,
     setPhone,
-    setImgUrl,
     setUsername,
+    setImageUpload,
   } = useContext(DataContext);
 
   return (
@@ -65,13 +64,6 @@ function SignUp() {
             onChange={(e) => setPhone(e.target.value)}
           />
           <input
-            type={"file"}
-            placeholder=""
-            value={imageUrl}
-            required
-            onChange={(e) => setImgUrl(e.target.value)}
-          />
-          <input
             type={"password"}
             placeholder="Password"
             value={password}
@@ -83,7 +75,7 @@ function SignUp() {
           {!user ? (
             <button onClick={() => submit()}>Sign Up</button>
           ) : (
-            <Link className="link" to="/login">
+            <Link className="link" to="/profile">
               <button className="button2">LogIn</button>
             </Link>
           )}

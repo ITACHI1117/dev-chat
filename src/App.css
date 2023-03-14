@@ -330,3 +330,16 @@ small {
   height: 25px;
   border-radius: 100%;
 }
+
+/* Profile page */
+.profileImgContain1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+}
+.profileImgContain1 img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+}

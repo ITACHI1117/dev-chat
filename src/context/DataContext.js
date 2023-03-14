@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
+import avatar from "../assets/images/avatar.png";
 
 const DataContext = createContext({});
 
@@ -17,7 +18,6 @@ export const DataProvider = ({ children }) => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
   const [username, setUsername] = useState("");
-  const [imageUrl, setImgUrl] = useState("");
   const [phone, setPhone] = useState("");
   // Login error
   const [error, setError] = useState("");
@@ -33,9 +33,9 @@ export const DataProvider = ({ children }) => {
         setUser(userCredential.user);
         // saving user info to the real time database
         set(ref(database, "users/" + userId), {
+          id: userId,
           username: username,
           email: email,
-          profile_picture: imageUrl,
           phone: phone,
         });
       })
@@ -69,13 +69,12 @@ export const DataProvider = ({ children }) => {
         user,
         username,
         phone,
-        imageUrl,
         error,
         loginError,
         signed,
+        userId,
         setEmail,
         setPhone,
-        setImgUrl,
         setUsername,
         setPassword,
         // functions

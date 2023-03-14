@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import { DataProvider } from "./context/DataContext";
 import Login from "./pages/Login";
 import ChatHome from "./pages/ChatHome";
+import ProfilePic from "./pages/ProfilePic";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/signUp",
     element: <SignUp />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePic />,
   },
   {
     path: "/login",
