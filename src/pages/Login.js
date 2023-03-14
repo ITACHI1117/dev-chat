@@ -5,8 +5,16 @@ import { useContext } from "react";
 import DataContext from "../context/DataContext";
 
 function Login() {
-  const { email, password, loginError, signIn, signed, setEmail, setPassword } =
-    useContext(DataContext);
+  const {
+    email,
+    password,
+    loginError,
+    signIn,
+    profileImg,
+    signed,
+    setEmail,
+    setPassword,
+  } = useContext(DataContext);
 
   return (
     <div>
@@ -28,7 +36,9 @@ function Login() {
         <h3>Your Profile</h3>
       </nav>
       <div className="profile">
-        <img src={images} alt="" />
+        <div className="profileImgContain1">
+          <img src={profileImg} alt="" />
+        </div>
         <form>
           <input
             type={"text"}

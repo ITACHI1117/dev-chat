@@ -1,7 +1,3 @@
-import images from "../assets/images/avatar.png";
-import { getDatabase, child, push, update } from "firebase/database";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage, database, reference } from "../firebaeConfig";
 import { Link } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import DataContext from "../context/DataContext";
@@ -9,37 +5,6 @@ import DataContext from "../context/DataContext";
 function ProfilePic() {
   const { profileImg, setImageUpload, upload } = useContext(DataContext);
   useContext(DataContext);
-  //   const [imageUpload, setImageUpload] = useState(null);
-  //   const [profileImg, setProfileImg] = useState(null);
-
-  //   function upload() {
-  //     if (imageUpload === null) return;
-  //     const imgRef = ref(
-  //       storage,
-  //       `images/usersProfileImg/${userId}/${imageUpload.name}`
-  //     );
-  //     uploadBytes(imgRef, imageUpload).then((snaphost) => {
-  //       getDownloadURL(snaphost.ref).then((url) => {
-  //         setProfileImg(url);
-  //       });
-  //     });
-
-  //     console.log(imageUpload.name);
-  //   }
-  //   console.log(userIdentify);
-
-  //   if (upload) {
-  //     update(
-  //       reference(database, "users/" + "0ea3188f-2ed2-4c25-aae4-a55f59724c18"),
-  //       {
-  //         profile_picture: profileImg,
-  //       }
-  //     )
-  //       .then(console.log("saved"))
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
 
   return (
     <div>
@@ -74,6 +39,13 @@ function ProfilePic() {
           <button id="loginBtn" onClick={() => upload()}>
             New Pic
           </button>
+          {upload ? (
+            <Link className="link" to="/login">
+              <button className="button2">Login</button>
+            </Link>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
