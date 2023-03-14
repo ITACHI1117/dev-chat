@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import images from "../assets/images/avatar.png";
 import { useContext } from "react";
@@ -87,6 +87,10 @@ function SignUp() {
               <button className="button2">LogIn</button>
             </Link>
           )}
+          <p>OR</p>
+          <Link className="link" to="/login">
+            <p>Login</p>
+          </Link>
         </div>
         <p>{error ? error : ""}</p>
       </div>

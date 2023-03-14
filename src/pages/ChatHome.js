@@ -3,9 +3,11 @@ import TopNav from "../components/TopNav";
 
 function ChatHome() {
   return (
-    <>
-      <TopNav />
-    </>
+    <div className="noScroll">
+      <div className="chatContainer">
+        <TopNav />
+      </div>
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 
 function TopNav() {
   return (
-    <nav>
+    <nav className="nav2">
       <h3>Chats</h3>
       <div className="nav2Icons">
         <svg

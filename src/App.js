@@ -4,8 +4,8 @@ import Welcome from "./pages/Welcome";
 import Error from "./components/Error";
 import SignUp from "./pages/SignUp";
 import { DataProvider } from "./context/DataContext";
-import UserInnfo from "./pages/Login";
 import Login from "./pages/Login";
+import ChatHome from "./pages/ChatHome";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/chats",
+    element: <ChatHome />,
   },
 ]);
 
