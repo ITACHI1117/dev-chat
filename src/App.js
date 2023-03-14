@@ -2,6 +2,8 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Error from "./components/Error";
+import SignUp from "./pages/SignUp";
+import { DataProvider } from "./context/DataContext";
 
 const router = createBrowserRouter([
   {
@@ -9,12 +11,18 @@ const router = createBrowserRouter([
     element: <Welcome />,
     errorElement: <Error />,
   },
+  {
+    path: "/signUp",
+    element: <SignUp />,
+  },
 ]);
 
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <DataProvider>
+        <RouterProvider router={router} />
+      </DataProvider>
     </>
   );
 }

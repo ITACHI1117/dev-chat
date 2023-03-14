@@ -60,3 +60,109 @@ body {
 .link {
   width: 100%;
 }
+
+.nav1 {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.nav1 a {
+  height: 100%;
+  text-align: center;
+}
+.nav1 h3 {
+  margin-left: 10px;
+}
+.profile {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+.profile img {
+  border-radius: 100%;
+}
+.profile form {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+}
+.profile form input {
+  outline: none;
+  margin-bottom: 10px;
+  width: 90%;
+  padding-left: 15px;
+  background-color: #f7f7fc;
+  height: 30px;
+  border-radius: 30px;
+  border: none;
+}
+.profile .form1 {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+.profile .form1 input {
+  top: 20%;
+  left: 52%;
+  opacity: 0;
+  position: absolute;
+  background-color: transparent;
+  width: 40px;
+}
+.save {
+  text-align: center;
+  width: 100%;
+}
+.save button {
+  text-align: center;
+  width: 90%;
+  background-color: #002de3;
+  border: none;
+  color: white;
+  margin-top: 20px;
+  border-radius: 30px;
+  height: 40px;
+}
+.save .button2 {
+  transition: 2s;
+  text-align: center;
+  width: 90%;
+  background-color: #002de3;
+  border: none;
+  color: white;
+  margin-top: 20px;
+  border-radius: 30px;
+  height: 40px;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: "+";
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 100%;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
