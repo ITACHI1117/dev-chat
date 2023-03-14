@@ -4,6 +4,8 @@ import Welcome from "./pages/Welcome";
 import Error from "./components/Error";
 import SignUp from "./pages/SignUp";
 import { DataProvider } from "./context/DataContext";
+import UserInnfo from "./pages/Login";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/signUp",
     element: <SignUp />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

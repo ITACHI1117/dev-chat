@@ -5,8 +5,21 @@ import { useContext } from "react";
 import DataContext from "../context/DataContext";
 
 function SignUp() {
-  const { email, password, user, error, setEmail, setPassword, submit } =
-    useContext(DataContext);
+  const {
+    email,
+    password,
+    user,
+    username,
+    phone,
+    imageUrl,
+    error,
+    setEmail,
+    setPassword,
+    submit,
+    setPhone,
+    setImgUrl,
+    setUsername,
+  } = useContext(DataContext);
 
   return (
     <div>
@@ -31,15 +44,38 @@ function SignUp() {
         <img src={images} alt="" />
         <form>
           <input
-            type="text"
+            type={"text"}
+            placeholder="Username"
+            value={username}
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type={"text"}
             placeholder="Email"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type="text"
+            type={"tel"}
+            placeholder="phone"
+            value={phone}
+            required
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <input
+            type={"file"}
+            placeholder=""
+            value={imageUrl}
+            required
+            onChange={(e) => setImgUrl(e.target.value)}
+          />
+          <input
+            type={"password"}
             placeholder="Password"
             value={password}
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </form>
@@ -47,7 +83,7 @@ function SignUp() {
           {!user ? (
             <button onClick={() => submit()}>Sign Up</button>
           ) : (
-            <Link className="link" to="/userInfo">
+            <Link className="link" to="/login">
               <button className="button2">LogIn</button>
             </Link>
           )}
