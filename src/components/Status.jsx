@@ -15,7 +15,7 @@ function Status() {
             <div className="storyContainer">
               <Link to="/status">
                 <div className="box">
-                  <img className="chatImage" src={img} />
+                  <img className="chatImage" src={img} alt="" />
                 </div>
               </Link>
               <h6>{name}</h6>

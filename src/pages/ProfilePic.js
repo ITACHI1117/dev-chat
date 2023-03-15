@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import DataContext from "../context/DataContext";
 
 function ProfilePic() {

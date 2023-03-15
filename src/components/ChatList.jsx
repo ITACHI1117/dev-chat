@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function ChatList({ UsersList, LoadError }) {
   return (
@@ -10,7 +10,7 @@ function ChatList({ UsersList, LoadError }) {
           return (
             <div className="oneChat" key={id}>
               <div className="ImageText">
-                <img className="chatImage" src={profile_picture} />
+                <img className="chatImage" src={profile_picture} alt="" />
                 <div className="nameText">
                   <h3>{username}</h3>
                   <p>lastMsg</p>

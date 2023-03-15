@@ -1,10 +1,9 @@
 import ChatList from "../components/ChatList";
 import Search from "../components/Search";
-import Status from "../components/Status";
 import TopNav from "../components/TopNav";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { database } from "../firebaeConfig";
-import { getDatabase, ref, child, push, get, update } from "firebase/database";
+import { ref, child, get } from "firebase/database";
 
 function ChatHome() {
   const [allUsers, setAllUsers] = useState();

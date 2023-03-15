@@ -1,11 +1,11 @@
-import { createContext, useCallback, useState, useEffect } from "react";
+import { createContext, useCallback, useState } from "react";
 import { auth, storage, database, reference } from "../firebaeConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-import { getDatabase, set, child, push, get, update } from "firebase/database";
+import { set, update } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const DataContext = createContext({});
@@ -46,6 +46,8 @@ export const DataProvider = ({ children }) => {
           profile_picture: " ",
           phone: phone,
         }).then(() => {
+          // setting userIdentify to userId so i can pass the same user id
+          // to other functions that may need it
           setUserIdentify(userId);
         });
       })
@@ -61,7 +63,6 @@ export const DataProvider = ({ children }) => {
         // Signed in
         setUser(userCredential.user);
         setSigned(true);
-
         // ...
       })
       .catch((error) => {
@@ -80,6 +81,7 @@ export const DataProvider = ({ children }) => {
     );
     uploadBytes(imgRef, imageUpload)
       .then((snaphost) => {
+        // getting the download url for the uploaded image
         getDownloadURL(snaphost.ref).then((url) => {
           setProfileImg(url);
         });
@@ -104,7 +106,7 @@ export const DataProvider = ({ children }) => {
   return (
     <DataContext.Provider
       value={{
-        // state
+        // states
         email,
         password,
         user,

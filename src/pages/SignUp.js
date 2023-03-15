@@ -17,7 +17,6 @@ function SignUp() {
     submit,
     setPhone,
     setUsername,
-    setImageUpload,
   } = useContext(DataContext);
 
   return (

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import images from "../assets/images/avatar.png";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
 
