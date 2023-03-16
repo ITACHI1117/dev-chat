@@ -36,7 +36,7 @@ function ChatHome() {
   return (
     <div className="noScroll">
       <div className="chatContainer">
-        <TopNav />
+        <TopNav userIdentify={userIdentify} />
         {/* <Status /> */}
         <Search />
         <ChatList

@@ -7,9 +7,11 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
         <p>{LoadError ? LoadError : "Connecting..."}</p>
       ) : (
         UsersList.map(({ id, username, profile_picture }) => {
+          // removing the logged in user info from the chat list
           if (userIdentify === id) {
             return;
           } else {
+            // rendering the other users
             return (
               <div className="oneChat" key={id}>
                 <div className="ImageText">

@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { database } from "../firebaeConfig";
+import { ref, child, get } from "firebase/database";
 
-function TopNav() {
+function TopNav({ userIdentify }) {
+  const [NavProfilePic, setNavProfilePic] = useState("");
+  const [LoadError, setLoadError] = useState();
+
+  useEffect(() => {
+    const dbRef = ref(database);
+    get(child(dbRef, `users/${userIdentify}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setNavProfilePic(snapshot.val().profile_picture);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoadError(error);
+      });
+  }, []);
   return (
     <nav className="nav2">
       <h3>Chats</h3>
+      <div className="NavImage">
+        <img src={NavProfilePic} alt="" />
+      </div>
       <div className="nav2Icons">
         <svg
           width="24"
