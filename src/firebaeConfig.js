@@ -10,12 +10,12 @@ import { ref } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDV_m2KDtc0RM7ZuFdNTy0gdduFIUKHRLs",
-  authDomain: "dev-chat-9a64c.firebaseapp.com",
-  projectId: "dev-chat-9a64c",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: "dev-chat-9a64c.appspot.com",
-  messagingSenderId: "419804745609",
-  appId: "1:419804745609:web:5455b8f5e9c63710735b58",
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
   databaseURL: "https://dev-chat-9a64c-default-rtdb.firebaseio.com",
 };
 

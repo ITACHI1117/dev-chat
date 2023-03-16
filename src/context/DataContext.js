@@ -13,7 +13,7 @@ const DataContext = createContext({});
 export const DataProvider = ({ children }) => {
   const userId = uuidv4();
 
-  // User State
+  // User State (Would use UseReducer to refactor this code)
   const [userIdentify, setUserIdentify] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +25,7 @@ export const DataProvider = ({ children }) => {
   // Login error
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [LoginLoading, setLoginLoading] = useState(false);
   const [signed, setSigned] = useState(false);
 
   // Upload
@@ -63,12 +64,18 @@ export const DataProvider = ({ children }) => {
         // Signed in
         setUser(userCredential.user);
         setSigned(true);
+        setLoginLoading(true);
+
         // ...
+      })
+      .then(() => {
+        setLoginLoading(false);
       })
       .catch((error) => {
         setLoginError(error.code);
         console.log(loginError);
       });
+    console.log("login loadinng " + LoginLoading);
   }, [email, password]);
 
   //   Upload Image function
@@ -118,6 +125,7 @@ export const DataProvider = ({ children }) => {
         userIdentify,
         imageUpload,
         profileImg,
+        LoginLoading,
         setEmail,
         setPhone,
         setUsername,
