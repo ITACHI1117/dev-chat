@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import DataContext from "../context/DataContext";
-import { database } from "../firebaeConfig";
-import { ref, child, get } from "firebase/database";
 
 function Login() {
   const {
@@ -11,7 +9,7 @@ function Login() {
     password,
     loginError,
     LoginLoading,
-    userIdentify,
+    allUsers,
     signIn,
     profileImg,
     signed,
@@ -22,43 +20,8 @@ function Login() {
   // Line 20-72  trying to get user Id and pass it to the chats
   // page when user logs in
 
-  const [allUsers, setAllUsers] = useState();
-  const [LoadError, setLoadError] = useState();
-  const [logInMail, setLoginMail] = useState("");
   const [loginUserId, setLoginInUserId] = useState("");
-  const [userId, setUserId] = useState("");
   const [profilePic, setProfilePic] = useState();
-
-  function logMail() {
-    console.log(logInMail);
-    console.log(email);
-  }
-
-  useEffect(() => {
-    if (signed === false) {
-      return;
-    } else if (signed === true) {
-      // getting all users
-      const dbRef = ref(database);
-      get(child(dbRef, `users/`))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            setAllUsers(Object.values(snapshot.val()));
-            console.log(Object.values(snapshot.val()));
-          } else {
-            console.log("No data available");
-          }
-        })
-
-        .catch((error) => {
-          console.log(error);
-          setLoadError(error);
-        });
-    }
-  }, [signed]);
-  // console.log(signed);
-
-  // console.log(email);
 
   useEffect(() => {
     let userEmail = email;
@@ -69,23 +32,15 @@ function Login() {
       allUsers.map(({ email, id, profile_picture }) => {
         if (userEmail === email) {
           setProfilePic(profile_picture);
+          setLoginInUserId(id);
           console.log(id);
         }
       });
     }
   }, [allUsers, signIn]);
 
-  // useEffect(() => {
-  //   if (logInMail == email) {
-  //     console.log(logInMail);
-  //     console.log(email);
-  //     console.log(userId);
-  //   } else {
-  //     logMail();
-  //     console.log("nope");
-  //   }
-  // }, [logInMail]);
-  // console.log(userIdentify);
+  // console.log(loginUserId);
+
   return (
     <div>
       <nav className="nav1">
@@ -130,7 +85,7 @@ function Login() {
             Login
           </button>
           {signed ? (
-            <Link className="link" to="/chats">
+            <Link className="link" to={`/chats/${loginUserId}`}>
               <button className="button2">Chats</button>
             </Link>
           ) : (
@@ -138,7 +93,7 @@ function Login() {
           )}
         </div>
         <p id="message">{loginError}</p>
-        <p>{loginUserId}</p>
+
         {LoginLoading ? <p>Loading</p> : " "}
       </div>
     </div>

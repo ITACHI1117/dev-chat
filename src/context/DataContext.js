@@ -1,4 +1,4 @@
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useState, useEffect } from "react";
 import { auth, storage, database, reference } from "../firebaeConfig";
 import {
   createUserWithEmailAndPassword,
@@ -7,6 +7,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { set, update } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { child, get } from "firebase/database";
 
 const DataContext = createContext({});
 
@@ -22,11 +23,13 @@ export const DataProvider = ({ children }) => {
   const [phone, setPhone] = useState("");
   const [imageUpload, setImageUpload] = useState(null);
   const [profileImg, setProfileImg] = useState("");
+  const [allUsers, setAllUsers] = useState();
   // Login error
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
   const [LoginLoading, setLoginLoading] = useState(false);
   const [signed, setSigned] = useState(false);
+  const [LoadError, setLoadError] = useState();
 
   // Upload
   const [uploaded, setUploaded] = useState(false);
@@ -65,8 +68,6 @@ export const DataProvider = ({ children }) => {
         setUser(userCredential.user);
         setSigned(true);
         setLoginLoading(true);
-
-        // ...
       })
       .then(() => {
         setLoginLoading(false);
@@ -110,6 +111,29 @@ export const DataProvider = ({ children }) => {
       });
   }
 
+  useEffect(() => {
+    if (signed === false) {
+      return;
+    } else if (signed === true) {
+      // getting all users
+      const dbRef = reference(database);
+      get(child(dbRef, `users/`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            setAllUsers(Object.values(snapshot.val()));
+            console.log(Object.values(snapshot.val()));
+          } else {
+            console.log("No data available");
+          }
+        })
+
+        .catch((error) => {
+          console.log(error);
+          setLoadError(error);
+        });
+    }
+  }, [signed]);
+
   return (
     <DataContext.Provider
       value={{
@@ -126,6 +150,7 @@ export const DataProvider = ({ children }) => {
         imageUpload,
         profileImg,
         LoginLoading,
+        allUsers,
         setEmail,
         setPhone,
         setUsername,
