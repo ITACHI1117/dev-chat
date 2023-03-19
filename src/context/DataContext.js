@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-import { set, update } from "firebase/database";
+import { serverTimestamp, set, update } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { child, get } from "firebase/database";
 
@@ -27,11 +27,11 @@ export const DataProvider = ({ children }) => {
   // Login error
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [LoginLoading, setLoginLoading] = useState(false);
+  const [LoginLoading, setLoginLoading] = useState();
   const [signed, setSigned] = useState(false);
   const [LoadError, setLoadError] = useState();
 
-  // Upload
+  // Uploadg()
   const [uploaded, setUploaded] = useState(false);
 
   // submit function
@@ -62,21 +62,22 @@ export const DataProvider = ({ children }) => {
 
   //   login Function
   const signIn = useCallback(() => {
+    setLoginLoading(true);
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         setUser(userCredential.user);
         setSigned(true);
-        setLoginLoading(true);
-      })
-      .then(() => {
         setLoginLoading(false);
       })
       .catch((error) => {
         setLoginError(error.code);
-        console.log(loginError);
+        setLoginLoading(false);
+        setTimeout(() => {
+          setLoginError("");
+        }, 2000);
       });
-    console.log("login loadinng " + LoginLoading);
   }, [email, password]);
 
   //   Upload Image function

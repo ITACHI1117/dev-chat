@@ -12,6 +12,7 @@ import { DataProvider } from "./context/DataContext";
 import Login from "./pages/Login";
 import ChatHome from "./pages/ChatHome";
 import ProfilePic from "./pages/ProfilePic";
+import ChatScreen from "./pages/ChatScreen";
 
 // const router = createBrowserRouter([
 //   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<Welcome />} errorElement={<Error />} />
       <Route path="/signUp" element={<SignUp />} />
+      <Route path="/profile" element={<ProfilePic />} />
       <Route path="/login" element={<Login />} />
       <Route
         loader={({ params }) => {
@@ -49,6 +51,7 @@ const router = createBrowserRouter(
         path="/chats/:id"
         element={<ChatHome />}
       />
+      <Route path="/chatScreen" element={<ChatScreen />} />
     </>
   )
 );

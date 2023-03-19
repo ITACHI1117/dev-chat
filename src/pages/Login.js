@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import images from "../assets/images/avatar.png";
 import { useContext, useEffect, useState } from "react";
 import DataContext from "../context/DataContext";
+import { set } from "firebase/database";
 
 function Login() {
   const {
@@ -11,14 +13,10 @@ function Login() {
     LoginLoading,
     allUsers,
     signIn,
-    profileImg,
     signed,
     setEmail,
     setPassword,
   } = useContext(DataContext);
-
-  // Line 20-72  trying to get user Id and pass it to the chats
-  // page when user logs in
 
   const [loginUserId, setLoginInUserId] = useState("");
   const [profilePic, setProfilePic] = useState();
@@ -38,8 +36,6 @@ function Login() {
       });
     }
   }, [allUsers, signIn]);
-
-  // console.log(loginUserId);
 
   return (
     <div>
@@ -62,7 +58,7 @@ function Login() {
       </nav>
       <div className="profile">
         <div className="profileImgContain1">
-          <img src={profileImg || profilePic} alt="" />
+          <img src={profilePic ? profilePic : images} alt="" />
         </div>
         <form>
           <input
@@ -80,10 +76,47 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </form>
-        <div className="save">
+        {!signed ? (
+          <div className="save">
+            <button id="loginBtn" onClick={() => signIn()}>
+              {!LoginLoading ? (
+                "Login"
+              ) : (
+                // load animation
+                <div className="loading">
+                  <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              )}
+            </button>
+          </div>
+        ) : (
+          <div className="save">
+            <Link className="link" to={`/chats/${loginUserId}`}>
+              <button className="button2">Chats</button>
+            </Link>
+          </div>
+        )}
+        {/*  <div className="save">
           <button id="loginBtn" onClick={() => signIn()}>
-            Login
-          </button>
+            {!LoginLoading ? (
+              "Login"
+            ) : (
+              // load animation
+              <div className="loading">
+                <div className="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            )}
+          </button> 
           {signed ? (
             <Link className="link" to={`/chats/${loginUserId}`}>
               <button className="button2">Chats</button>
@@ -91,20 +124,11 @@ function Login() {
           ) : (
             " "
           )}
-        </div>
+        </div> */}
         <p id="message">{loginError}</p>
-
-        {LoginLoading ? <p>Loading</p> : " "}
       </div>
     </div>
   );
 }
-
-// {signed
-//   ? (window.location.href = "/chats")
-//   : // <Link className="link" to="/chats">
-//     //   <button className="button2">Chats</button>
-//     // </Link>
-//     ""}
 
 export default Login;

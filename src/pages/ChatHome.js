@@ -3,17 +3,26 @@ import Search from "../components/Search";
 import TopNav from "../components/TopNav";
 import React, { useEffect, useState } from "react";
 import { database } from "../firebaeConfig";
-import { ref, child, get } from "firebase/database";
+import {
+  ref,
+  child,
+  get,
+  serverTimestamp,
+  set,
+  update,
+  push,
+  onDisconnect,
+  onValue,
+} from "firebase/database";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
 import { useLoaderData } from "react-router-dom";
+import BottomNav from "../components/BottomNav";
 
 function ChatHome() {
   const { email } = useContext(DataContext);
 
   const userIdentify = useLoaderData();
-
-  console.log(email);
 
   const [allUsers, setAllUsers] = useState();
   const [LoadError, setLoadError] = useState();
@@ -33,6 +42,32 @@ function ChatHome() {
       });
   }, []);
 
+  useEffect(() => {
+    const myConnectionsRef = ref(database, `users/${userIdentify}/connections`);
+
+    // stores the timestamp of my last disconnect (the last time I was seen online)
+    const lastOnlineRef = ref(database, `users/${userIdentify}/lastOnline`);
+
+    const connectedRef = ref(database, ".info/connected");
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
+        const con = push(myConnectionsRef);
+
+        // When I disconnect, remove this device
+        onDisconnect(con).remove();
+        onDisconnect(myConnectionsRef).set(con, false);
+
+        // Add this device to my connections list
+        // this value could contain info about the device or a timestamp too
+        set(con, true);
+
+        // When I disconnect, update the last time I was seen online
+        onDisconnect(lastOnlineRef).set(serverTimestamp());
+      }
+    });
+  });
+
   return (
     <div className="noScroll">
       <div className="chatContainer">
@@ -44,6 +79,7 @@ function ChatHome() {
           LoadError={LoadError}
           userIdentify={userIdentify}
         />
+        <BottomNav />
       </div>
     </div>
   );
