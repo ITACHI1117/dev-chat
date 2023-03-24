@@ -26,6 +26,8 @@ function ChatHome() {
 
   const [allUsers, setAllUsers] = useState();
   const [LoadError, setLoadError] = useState();
+  const [online, setOnline] = useState();
+  const [offline, setOffline] = useState();
   useEffect(() => {
     const dbRef = ref(database);
     get(child(dbRef, `users/`))
@@ -42,6 +44,17 @@ function ChatHome() {
       });
   }, []);
 
+  // useEffect(() => {
+  //   allUsers
+  //     ? allUsers.map(({ email, connections }) => {
+  //         connections
+  //           ? console.log(email + " online")
+  //           : console.log(email + "offline");
+  //       })
+  //     : console.log(undefined);
+  // }, [allUsers]);
+  // console.log(online);
+  // console.log(offline);
   useEffect(() => {
     const myConnectionsRef = ref(database, `users/${userIdentify}/connections`);
 
@@ -56,7 +69,6 @@ function ChatHome() {
 
         // When I disconnect, remove this device
         onDisconnect(con).remove();
-        onDisconnect(myConnectionsRef).set(con, false);
 
         // Add this device to my connections list
         // this value could contain info about the device or a timestamp too
@@ -78,6 +90,7 @@ function ChatHome() {
           UsersList={allUsers}
           LoadError={LoadError}
           userIdentify={userIdentify}
+          ActiveStatus={online}
         />
         <BottomNav />
       </div>

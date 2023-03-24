@@ -1,12 +1,12 @@
 import React from "react";
 
-function ChatList({ UsersList, LoadError, userIdentify }) {
+function ChatList({ UsersList, LoadError, userIdentify, ActiveStatus }) {
   return (
     <div className="chatList">
       {UsersList === undefined ? (
         <p>{LoadError ? LoadError : "Connecting..."}</p>
       ) : (
-        UsersList.map(({ id, username, profile_picture }) => {
+        UsersList.map(({ connections, id, username, profile_picture }) => {
           // removing the logged in user info from the chat list
           if (userIdentify === id) {
             return;
@@ -18,14 +18,16 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
                   <img className="chatImage" src={profile_picture} alt="" />
                   <div className="nameText">
                     <h3>{username}</h3>
-                    <p>lastMsg</p>
+                    <p></p>
                   </div>
                 </div>
                 <div className="dateText">
-                  <small>lastSeen</small>
-                  <div className="smallBox">
-                    <p>unread</p>
-                  </div>
+                  {/* <small>Unread 1</small> */}
+                  {connections ? (
+                    <div className="smallBox"></div>
+                  ) : (
+                    <div className="smallBox2"></div>
+                  )}
                 </div>
               </div>
             );

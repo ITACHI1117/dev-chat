@@ -334,12 +334,22 @@ small {
   align-items: center;
   justify-content: center;
   display: flex;
-  background-color: #d2d5f9;
-  width: 25px;
+  background-color: #14ff37;
+  width: 10px;
   margin-top: 5px;
-  color: #001a83;
   font-size: 10px;
-  height: 25px;
+  height: 10px;
+  border-radius: 100%;
+}
+.smallBox2 {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: #bbb9b9;
+  width: 10px;
+  margin-top: 5px;
+  font-size: 10px;
+  height: 10px;
   border-radius: 100%;
 }
 
