@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import images from "../assets/images/avatar.png";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const {
@@ -12,12 +13,28 @@ function SignUp() {
     username,
     phone,
     error,
+    signUpError,
     setEmail,
     setPassword,
     submit,
     setPhone,
     setUsername,
+    SignUpLoading,
   } = useContext(DataContext);
+
+  const navigate = useNavigate();
+
+  async function redirect() {
+    await user;
+    setTimeout(() => {
+      // 👇 Redirects to about page, note the `replace: true`
+      navigate(`/profile`, { replace: false });
+    });
+  }
+
+  if (user) {
+    redirect();
+  }
 
   return (
     <div>
@@ -71,19 +88,28 @@ function SignUp() {
           />
         </form>
         <div className="save">
-          {!user ? (
-            <button onClick={() => submit()}>Sign Up</button>
-          ) : (
-            <Link className="link" to="/profile">
-              <button className="button2">LogIn</button>
-            </Link>
-          )}
+          <button onClick={() => submit()}>
+            {!SignUpLoading ? (
+              "Sign Up"
+            ) : (
+              // load animation
+              <div className="loading">
+                <div className="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            )}
+          </button>
+
           <p>OR</p>
           <Link className="link" to="/login">
             <p>Login</p>
           </Link>
         </div>
-        <p>{error ? error : ""}</p>
+        <p id="message">{signUpError}</p>
       </div>
     </div>
   );

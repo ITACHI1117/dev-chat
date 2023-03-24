@@ -27,21 +27,26 @@ export const DataProvider = ({ children }) => {
   // Login error
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [signUpError, setSignUpError] = useState("");
   const [LoginLoading, setLoginLoading] = useState();
+  const [SignUpLoading, setSignUpLoading] = useState();
   const [signed, setSigned] = useState(false);
   const [LoadError, setLoadError] = useState();
 
   // Uploadg()
   const [uploaded, setUploaded] = useState(false);
 
-  // submit function
+  // Sign Up function
   const submit = useCallback(() => {
     setUserIdentify(userId);
+    // set state loading
+    setSignUpLoading(true);
     // creating user data
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         setUser(userCredential.user);
+        setSignUpLoading(false);
         // saving user info to the real time database
         set(reference(database, "users/" + userId), {
           id: userId,
@@ -56,7 +61,11 @@ export const DataProvider = ({ children }) => {
         });
       })
       .catch((error) => {
-        setError(error.code);
+        setSignUpError(error.code);
+        setSignUpLoading(false);
+        setTimeout(() => {
+          setSignUpError("");
+        }, 3000);
       });
   }, [email, password]);
 
@@ -76,7 +85,7 @@ export const DataProvider = ({ children }) => {
         setLoginLoading(false);
         setTimeout(() => {
           setLoginError("");
-        }, 2000);
+        }, 3000);
       });
   }, [email, password]);
 
@@ -146,11 +155,13 @@ export const DataProvider = ({ children }) => {
         phone,
         error,
         loginError,
+        signUpError,
         signed,
         userIdentify,
         imageUpload,
         profileImg,
         LoginLoading,
+        SignUpLoading,
         allUsers,
         setEmail,
         setPhone,

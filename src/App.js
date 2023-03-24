@@ -14,29 +14,6 @@ import ChatHome from "./pages/ChatHome";
 import ProfilePic from "./pages/ProfilePic";
 import ChatScreen from "./pages/ChatScreen";
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Welcome />,
-//     errorElement: <Error />,
-//   },
-//   {
-//     path: "/signUp",
-//     element: <SignUp />,
-//   },
-//   {
-//     path: "/profile",
-//     element: <ProfilePic />,
-//   },
-//   {
-//     path: "/login",
-//     element: <Login />,
-//   },
-//   {
-//     path: "/chats/:id",
-//     element: <ChatHome />,
-//   },
-// ]);
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
