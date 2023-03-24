@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import images from "../assets/images/avatar.png";
 import { useContext, useEffect, useState } from "react";
 import DataContext from "../context/DataContext";
+import { useNavigate } from "react-router-dom";
 import { set } from "firebase/database";
 
 function Login() {
@@ -18,7 +19,9 @@ function Login() {
     setPassword,
   } = useContext(DataContext);
 
-  const [loginUserId, setLoginInUserId] = useState("");
+  const navigate = useNavigate();
+
+  const [loginUserId, setLoginInUserId] = useState();
   const [profilePic, setProfilePic] = useState();
 
   useEffect(() => {
@@ -26,16 +29,26 @@ function Login() {
     if (allUsers === undefined) {
       return;
     } else {
-      console.log("done");
       allUsers.map(({ email, id, profile_picture }) => {
         if (userEmail === email) {
           setProfilePic(profile_picture);
           setLoginInUserId(id);
-          console.log(id);
         }
       });
     }
   }, [allUsers, signIn]);
+
+  async function redirect() {
+    await signed;
+    setTimeout(() => {
+      // 👇 Redirects to about page, note the `replace: true`
+      navigate(`/chats/${loginUserId}`, { replace: false });
+    });
+  }
+
+  if (loginUserId !== undefined) {
+    redirect();
+  }
 
   return (
     <div>
@@ -76,32 +89,8 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </form>
-        {!signed ? (
-          <div className="save">
-            <button id="loginBtn" onClick={() => signIn()}>
-              {!LoginLoading ? (
-                "Login"
-              ) : (
-                // load animation
-                <div className="loading">
-                  <div className="lds-ring">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </div>
-              )}
-            </button>
-          </div>
-        ) : (
-          <div className="save">
-            <Link className="link" to={`/chats/${loginUserId}`}>
-              <button className="button2">Chats</button>
-            </Link>
-          </div>
-        )}
-        {/*  <div className="save">
+
+        <div className="save">
           <button id="loginBtn" onClick={() => signIn()}>
             {!LoginLoading ? (
               "Login"
@@ -116,15 +105,8 @@ function Login() {
                 </div>
               </div>
             )}
-          </button> 
-          {signed ? (
-            <Link className="link" to={`/chats/${loginUserId}`}>
-              <button className="button2">Chats</button>
-            </Link>
-          ) : (
-            " "
-          )}
-        </div> */}
+          </button>
+        </div>
         <p id="message">{loginError}</p>
       </div>
     </div>

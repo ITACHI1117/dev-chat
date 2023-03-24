@@ -1,10 +1,25 @@
 import { Link } from "react-router-dom";
 import React, { useContext } from "react";
 import DataContext from "../context/DataContext";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePic() {
   const { profileImg, setImageUpload, upload } = useContext(DataContext);
+  const navigate = useNavigate();
+
   useContext(DataContext);
+
+  async function redirect() {
+    await profileImg;
+    setTimeout(() => {
+      // 👇 Redirects to about page, note the `replace: true`
+      navigate(`/login`, { replace: false });
+    });
+  }
+
+  if (profileImg) {
+    redirect();
+  }
 
   return (
     <div>
