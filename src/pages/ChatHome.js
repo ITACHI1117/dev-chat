@@ -26,8 +26,7 @@ function ChatHome() {
 
   const [allUsers, setAllUsers] = useState();
   const [LoadError, setLoadError] = useState();
-  const [online, setOnline] = useState();
-  const [offline, setOffline] = useState();
+
   useEffect(() => {
     const dbRef = ref(database);
     get(child(dbRef, `users/`))
@@ -44,17 +43,6 @@ function ChatHome() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   allUsers
-  //     ? allUsers.map(({ email, connections }) => {
-  //         connections
-  //           ? console.log(email + " online")
-  //           : console.log(email + "offline");
-  //       })
-  //     : console.log(undefined);
-  // }, [allUsers]);
-  // console.log(online);
-  // console.log(offline);
   useEffect(() => {
     const myConnectionsRef = ref(database, `users/${userIdentify}/connections`);
 
@@ -78,7 +66,7 @@ function ChatHome() {
         onDisconnect(lastOnlineRef).set(serverTimestamp());
       }
     });
-  });
+  }, []);
 
   return (
     <div className="noScroll">
@@ -90,7 +78,6 @@ function ChatHome() {
           UsersList={allUsers}
           LoadError={LoadError}
           userIdentify={userIdentify}
-          ActiveStatus={online}
         />
         <BottomNav />
       </div>

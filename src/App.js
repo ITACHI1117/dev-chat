@@ -28,7 +28,13 @@ const router = createBrowserRouter(
         path="/chats/:id"
         element={<ChatHome />}
       />
-      <Route path="/chatScreen" element={<ChatScreen />} />
+      <Route
+        loader={({ params }) => {
+          return params.id;
+        }}
+        path="/chatScreen/:id"
+        element={<ChatScreen />}
+      />
     </>
   )
 );

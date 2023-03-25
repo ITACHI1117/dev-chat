@@ -1,6 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function ChatList({ UsersList, LoadError, userIdentify, ActiveStatus }) {
+function ChatList({ UsersList, LoadError, userIdentify }) {
+  const navigate = useNavigate();
+
+  async function redirect(id) {
+    await id;
+    setTimeout(() => {
+      // 👇 Redirects to about page, note the `replace: true`
+      navigate(`/chatScreen/${id}`, { replace: false });
+    });
+  }
   return (
     <div className="chatList">
       {UsersList === undefined ? (
@@ -13,7 +23,7 @@ function ChatList({ UsersList, LoadError, userIdentify, ActiveStatus }) {
           } else {
             // rendering the other users
             return (
-              <div className="oneChat" key={id}>
+              <div onClick={() => redirect(id)} className="oneChat" key={id}>
                 <div className="ImageText">
                   <img className="chatImage" src={profile_picture} alt="" />
                   <div className="nameText">

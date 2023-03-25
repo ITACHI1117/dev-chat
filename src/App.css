@@ -202,8 +202,9 @@ body {
   background-color: white;
   position: fixed;
   width: 100vw;
-  height: 5vh;
-  padding: 15px;
+  height: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
@@ -213,7 +214,7 @@ body {
 .NavImage {
   width: 40px;
   height: 40px;
-  margin-left: 10px;
+  margin-right: 5px;
 }
 .NavImage img {
   width: 100%;
@@ -222,14 +223,15 @@ body {
   object-fit: cover;
 }
 .nav2Icons {
-  margin-right: 30px;
+  margin-right: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 .nav2Icons svg {
-  margin-left: 10px;
+  margin-top: 3px;
+  margin-left: 5px;
 }
 .story {
   overflow-x: scroll;
@@ -319,6 +321,7 @@ hr {
   flex-direction: row;
   align-items: center;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .dateText {
   display: flex;
@@ -390,8 +393,9 @@ small {
   position: fixed;
 }
 .chatNoScroll {
+  width: 100vw;
   overflow: hidden;
-  background-color: #f7f7fc;
+  background-color: #f1f0f0;
 }
 .textArea {
   width: 100vw;
