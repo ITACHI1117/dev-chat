@@ -8,9 +8,10 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
     await id;
     setTimeout(() => {
       // 👇 Redirects to about page, note the `replace: true`
-      navigate(`/chatScreen/${id}`, { replace: false });
+      navigate(`/chatScreen/${userIdentify}/${id}`, { replace: false });
     });
   }
+
   return (
     <div className="chatList">
       {UsersList === undefined ? (

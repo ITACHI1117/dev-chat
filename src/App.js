@@ -30,9 +30,9 @@ const router = createBrowserRouter(
       />
       <Route
         loader={({ params }) => {
-          return params.id;
+          return params;
         }}
-        path="/chatScreen/:id"
+        path="/chatScreen/:id/:id2"
         element={<ChatScreen />}
       />
     </>

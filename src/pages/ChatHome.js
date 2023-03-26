@@ -41,7 +41,7 @@ function ChatHome() {
         console.log(error);
         setLoadError(error);
       });
-  }, []);
+  }, [allUsers]);
 
   useEffect(() => {
     const myConnectionsRef = ref(database, `users/${userIdentify}/connections`);

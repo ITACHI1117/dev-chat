@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-function TextArea() {
+function TextArea({ setSenderText, sendMessage }) {
   return (
     <div className="textArea">
       <div className="inputsIcons">
@@ -18,9 +18,14 @@ function TextArea() {
         </svg>
 
         <form>
-          <input type="text" placeholder="Type here..." />
+          <input
+            type="text"
+            placeholder="Type here..."
+            onChange={(e) => setSenderText(e.target.value)}
+          />
         </form>
         <svg
+          onClick={() => sendMessage()}
           width="34"
           height="34"
           viewBox="0 0 24 24"
