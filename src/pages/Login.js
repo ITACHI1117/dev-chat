@@ -4,7 +4,6 @@ import images from "../assets/images/avatar.png";
 import { useContext, useEffect, useState } from "react";
 import DataContext from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
-import { set } from "firebase/database";
 
 function Login() {
   const {
@@ -34,9 +33,10 @@ function Login() {
           setProfilePic(profile_picture);
           setLoginInUserId(id);
         }
+        return null;
       });
     }
-  }, [allUsers, signIn]);
+  }, [allUsers, signIn, email]);
 
   async function redirect() {
     await signed;
