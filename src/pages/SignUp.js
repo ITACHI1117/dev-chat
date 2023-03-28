@@ -12,7 +12,6 @@ function SignUp() {
     user,
     username,
     phone,
-    error,
     signUpError,
     setEmail,
     setPassword,
