@@ -37,7 +37,7 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
         UsersList.map(({ connections, id, username, profile_picture }) => {
           // removing the logged in user info from the chat list
           if (userIdentify === id) {
-            return;
+            return null;
           } else {
             // rendering the other users
             return (

@@ -5,7 +5,6 @@ import navProfileImg from "../assets/images/avatar.png";
 
 function TopNav({ userIdentify }) {
   const [NavProfilePic, setNavProfilePic] = useState("");
-  const [LoadError, setLoadError] = useState();
 
   useEffect(() => {
     const dbRef = ref(database);
@@ -19,9 +18,8 @@ function TopNav({ userIdentify }) {
       })
       .catch((error) => {
         console.log(error);
-        setLoadError(error);
       });
-  }, []);
+  }, [userIdentify]);
   return (
     <nav className="chatHomeNav">
       <h3> Chats</h3>

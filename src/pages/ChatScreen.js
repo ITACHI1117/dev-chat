@@ -4,7 +4,6 @@ import { ref, child, get, set, serverTimestamp } from "firebase/database";
 import { useLoaderData } from "react-router-dom";
 import NavChatScreen from "../components/NavChatScreen";
 import TextArea from "../components/TextArea";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 function ChatScreen() {
@@ -12,11 +11,9 @@ function ChatScreen() {
   const { id, id2 } = useLoaderData();
 
   const [chatUserData, setChatUserData] = useState();
-  const [messages, setMessages] = useState();
+
   const [senderMessage, setSenderMessage] = useState();
-  const [reciverMessage, setReciverMessage] = useState();
   const [senderText, setSenderText] = useState(" ");
-  const [getmessageID, setGetMessageID] = useState();
 
   const messageID = uuidv4();
 
@@ -35,13 +32,7 @@ function ChatScreen() {
         console.log(error);
         // setLoadError(error);
       });
-  }, [chatUserData]);
-
-  useEffect(() => {
-    // getmessageID.map(({ messageID }) => {
-    //   setMessages(messageID);
-    // });
-  }, []);
+  }, [chatUserData, id2]);
 
   function sendMessage() {
     setSenderText(" ");
@@ -120,6 +111,7 @@ function ChatScreen() {
               </div>
             );
           }
+          return null;
         })}
 
         <TextArea

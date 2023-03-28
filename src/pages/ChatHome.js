@@ -1,5 +1,5 @@
 import ChatList from "../components/ChatList";
-import Search from "../components/Search";
+// import Search from "../components/Search";
 import TopNav from "../components/TopNav";
 import React, { useEffect, useState } from "react";
 import { database } from "../firebaeConfig";
@@ -9,15 +9,12 @@ import {
   get,
   serverTimestamp,
   set,
-  update,
   push,
   onDisconnect,
   onValue,
 } from "firebase/database";
-import { useContext } from "react";
-import DataContext from "../context/DataContext";
 import { useLoaderData } from "react-router-dom";
-import BottomNav from "../components/BottomNav";
+// import BottomNav from "../components/BottomNav";
 
 function ChatHome() {
   const userIdentify = useLoaderData();
@@ -64,7 +61,7 @@ function ChatHome() {
         onDisconnect(lastOnlineRef).set(serverTimestamp());
       }
     });
-  }, []);
+  }, [userIdentify]);
 
   return (
     <div className="noScroll">
