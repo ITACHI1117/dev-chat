@@ -16,8 +16,9 @@ function ChatScreen() {
   const [senderMessage, setSenderMessage] = useState();
   const [reciverMessage, setReciverMessage] = useState();
   const [senderText, setSenderText] = useState();
+  const [getmessageID, setGetMessageID] = useState();
+
   const messageID = uuidv4();
-  const RandomTextID = uuidv4();
 
   // Gettinng user data from Db
   useEffect(() => {
@@ -36,8 +37,14 @@ function ChatScreen() {
       });
   }, [chatUserData]);
 
+  useEffect(() => {
+    // getmessageID.map(({ messageID }) => {
+    //   setMessages(messageID);
+    // });
+  }, []);
+
   function sendMessage() {
-    set(reference(database, `messages/${id}-to-${id2}/${messageID}`), {
+    set(reference(database, `messages/${messageID}`), {
       senderID: id,
       receiver: id2,
       messages: senderText,
@@ -48,13 +55,13 @@ function ChatScreen() {
         console.log("sent");
       })
       .catch((error) => {
-        console.log(error.code);
+        console.log(error);
       });
   }
 
   useEffect(() => {
     const dbRef = ref(database);
-    get(child(dbRef, `messages/${id}-to-${id2}/`))
+    get(child(dbRef, `messages`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           setSenderMessage(Object.values(snapshot.val()));
@@ -66,55 +73,23 @@ function ChatScreen() {
         console.log(error);
         // setLoadError(error);
       });
-  }, [senderMessage]);
+  }, [chatUserData]);
 
   useEffect(() => {
-    const dbRef = ref(database);
-    get(child(dbRef, `messages/${id2}-to-${id}/`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setReciverMessage(Object.values(snapshot.val()));
-        } else {
-          console.log(" Reciever No data available");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        // setLoadError(error);
-      });
-  }, [reciverMessage]);
+    if (senderMessage === undefined) {
+      return;
+    }
 
-  const text = [{ m: 1 }, { m: 2 }, { m: 4 }, { m: 3 }];
+    senderMessage.map((item) => {
+      if (item.receiver) {
+        console.log(item.messages);
+      } else {
+        console.log(item.messages);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   // update user Profile image in firebase realtime database
-  //   update(reference(database, `messages/${id}-to-${id2}`), {
-  //     senderID: id,
-  //     receiverID: id2,
-  //     messages: texArray,
-  //   })
-  //     .then(console.log("saved"))
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   const dbRef = ref(database);
-  //   get(child(dbRef, `messages/${id}-to-${id2}`))
-  //     .then((snapshot) => {
-  //       if (snapshot.exists()) {
-  //         console.log(Object.values(snapshot.val()));
-  //       } else {
-  //         console.log("No data available");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // setLoadError(error);
-  //     });
-  // }, []);
-  if (senderMessage === undefined || reciverMessage === undefined) {
+  if (senderMessage === undefined) {
     return (
       <>
         <div className="chatNoScroll">
@@ -138,9 +113,6 @@ function ChatScreen() {
   senderMessage.sort((m1, m2) =>
     m1.time < m2.time ? 1 : m1.time > m2.time ? -1 : 0
   );
-  reciverMessage.sort((m1, m2) =>
-    m1.time < m2.time ? 1 : m1.time > m2.time ? -1 : 0
-  );
 
   return (
     <>
@@ -148,33 +120,34 @@ function ChatScreen() {
         <NavChatScreen chatUserData={chatUserData} />
         <div className="story1">
           <div className="chatArea">
-            <div className="columnNormal">
-              <p className="p1">game</p>
-              <p className="p2">game2</p>
-              <p className="p1">game3</p>
-              <p className="p2">game4</p>
-              <p className="p1">game5</p>
-            </div>
-
-            {/* {reciverMessage.map(({ messages, messageID }) => {
-              return (
-                <div className="reverseBack" key={messageID}>
-                  <div className="chatBoxSender">
-                    <p>{messages}</p>
-                  </div>
-                </div>
-              );
+            {senderMessage.map((item) => {
+              if (item.receiver === id && item.senderID === id2) {
+                return (
+                  <>
+                    <div className="columnNormal">
+                      <div className="p1">
+                        <p className="p1" key={item.messageID}>
+                          {item.messages}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                );
+              }
+              if (item.receiver === id2 && item.senderID === id) {
+                return (
+                  <>
+                    <div className="columnNormal">
+                      <div className="p2">
+                        <p className="p1" key={item.messageID}>
+                          {item.messages}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                );
+              }
             })}
-
-            {senderMessage.map(({ messages, messageID }) => {
-              return (
-                <div className="reverseBack" key={messageID}>
-                  <div className="chatBoxReciver">
-                    <p>{messages}</p>
-                  </div>
-                </div>
-              );
-            })} */}
           </div>
         </div>
         <TextArea sendMessage={sendMessage} setSenderText={setSenderText} />
