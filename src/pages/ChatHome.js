@@ -20,8 +20,6 @@ import { useLoaderData } from "react-router-dom";
 import BottomNav from "../components/BottomNav";
 
 function ChatHome() {
-  const { email } = useContext(DataContext);
-
   const userIdentify = useLoaderData();
 
   const [allUsers, setAllUsers] = useState();
@@ -38,7 +36,7 @@ function ChatHome() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadError(error);
       });
   }, [allUsers]);
@@ -73,13 +71,13 @@ function ChatHome() {
       <div className="chatContainer">
         <TopNav userIdentify={userIdentify} />
         {/* <Status /> */}
-        <Search />
+        {/* <Search /> */}
         <ChatList
           UsersList={allUsers}
           LoadError={LoadError}
           userIdentify={userIdentify}
         />
-        <BottomNav />
+        {/* <BottomNav /> */}
       </div>
     </div>
   );

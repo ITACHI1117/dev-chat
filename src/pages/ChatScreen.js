@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth, storage, database, db, reference } from "../firebaeConfig";
+import { database, reference } from "../firebaeConfig";
 import { ref, child, get, set, serverTimestamp } from "firebase/database";
 import { useLoaderData } from "react-router-dom";
 import NavChatScreen from "../components/NavChatScreen";
@@ -15,7 +15,7 @@ function ChatScreen() {
   const [messages, setMessages] = useState();
   const [senderMessage, setSenderMessage] = useState();
   const [reciverMessage, setReciverMessage] = useState();
-  const [senderText, setSenderText] = useState();
+  const [senderText, setSenderText] = useState(" ");
   const [getmessageID, setGetMessageID] = useState();
 
   const messageID = uuidv4();
@@ -44,6 +44,7 @@ function ChatScreen() {
   }, []);
 
   function sendMessage() {
+    setSenderText(" ");
     set(reference(database, `messages/${messageID}`), {
       senderID: id,
       receiver: id2,
@@ -58,7 +59,6 @@ function ChatScreen() {
         console.log(error);
       });
   }
-
   useEffect(() => {
     const dbRef = ref(database);
     get(child(dbRef, `messages`))
@@ -75,82 +75,58 @@ function ChatScreen() {
       });
   }, [chatUserData]);
 
-  useEffect(() => {
-    if (senderMessage === undefined) {
-      return;
-    }
-
-    senderMessage.map((item) => {
-      if (item.receiver) {
-        console.log(item.messages);
-      } else {
-        console.log(item.messages);
-      }
-    });
-  }, []);
-
+  //  returing a blank chat arear if there is no messages between the tow users
   if (senderMessage === undefined) {
     return (
       <>
-        <div className="chatNoScroll">
+        <div className="chatArea">
           <NavChatScreen chatUserData={chatUserData} />
-          <div className="story1">
-            <div className="chatArea">
-              {/* <div className="chatBoxSender">
-                <p>Naruto will Clap Saitama😅</p>
-              </div> */}
 
-              {/* <div className="chatBoxReciver" key={messageID}>
-                <p></p>
-              </div> */}
-            </div>
-          </div>
-          <TextArea sendMessage={sendMessage} setSenderText={setSenderText} />
+          <TextArea
+            sendMessage={sendMessage}
+            setSenderText={setSenderText}
+            senderText={senderText}
+          />
         </div>
       </>
     );
   }
+  //  sorting the messages by the time sent
   senderMessage.sort((m1, m2) =>
     m1.time < m2.time ? 1 : m1.time > m2.time ? -1 : 0
   );
 
   return (
     <>
-      <div className="chatNoScroll">
-        <NavChatScreen chatUserData={chatUserData} />
-        <div className="story1">
-          <div className="chatArea">
-            {senderMessage.map((item) => {
-              if (item.receiver === id && item.senderID === id2) {
-                return (
-                  <>
-                    <div className="columnNormal">
-                      <div className="p1">
-                        <p className="p1" key={item.messageID}>
-                          {item.messages}
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                );
-              }
-              if (item.receiver === id2 && item.senderID === id) {
-                return (
-                  <>
-                    <div className="columnNormal">
-                      <div className="p2">
-                        <p className="p1" key={item.messageID}>
-                          {item.messages}
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                );
-              }
-            })}
-          </div>
-        </div>
-        <TextArea sendMessage={sendMessage} setSenderText={setSenderText} />
+      <div className="chatArea">
+        <NavChatScreen chatUserData={chatUserData} currentUserID={id} />
+
+        {senderMessage.map((item) => {
+          if (item.receiver === id && item.senderID === id2) {
+            return (
+              <div className="columnNormal" key={item.messageID}>
+                <div className="p1">
+                  <p className="chatBoxSender">{item.messages}</p>
+                </div>
+              </div>
+            );
+          }
+          if (item.receiver === id2 && item.senderID === id) {
+            return (
+              <div className="columnNormal" key={item.messageID}>
+                <div className="p2">
+                  <p className="chatBoxReciver">{item.messages}</p>
+                </div>
+              </div>
+            );
+          }
+        })}
+
+        <TextArea
+          sendMessage={sendMessage}
+          setSenderText={setSenderText}
+          senderText={senderText}
+        />
       </div>
     </>
   );

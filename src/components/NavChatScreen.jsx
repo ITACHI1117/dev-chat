@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function NavChatScreen({ chatUserData }) {
+function NavChatScreen({ chatUserData, currentUserID }) {
   if (chatUserData === undefined) {
     return console.log("loading");
   }
   return (
     <nav className="nav2">
       <div className="nav2Icons">
-        <Link to="/chats">
+        <Link to={`/chats/${currentUserID}`}>
           <svg
             width="10"
             height="14"

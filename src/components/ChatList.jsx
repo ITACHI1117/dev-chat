@@ -15,7 +15,24 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
   return (
     <div className="chatList">
       {UsersList === undefined ? (
-        <p>{LoadError ? LoadError : "Connecting..."}</p>
+        <div>
+          <div>
+            {LoadError ? (
+              console.log(LoadError)
+            ) : (
+              <div className="ChatListLoader">
+                <div className="loading-chat-list">
+                  <div className="lds-ring-chat-list">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       ) : (
         UsersList.map(({ connections, id, username, profile_picture }) => {
           // removing the logged in user info from the chat list
