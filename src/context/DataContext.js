@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-import { serverTimestamp, set, update } from "firebase/database";
+import { set, update } from "firebase/database";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { child, get } from "firebase/database";
 
@@ -25,7 +25,7 @@ export const DataProvider = ({ children }) => {
   const [profileImg, setProfileImg] = useState("");
   const [allUsers, setAllUsers] = useState();
   // Login error
-  const [error, setError] = useState("");
+
   const [loginError, setLoginError] = useState("");
   const [signUpError, setSignUpError] = useState("");
   const [LoginLoading, setLoginLoading] = useState();
@@ -67,7 +67,7 @@ export const DataProvider = ({ children }) => {
           setSignUpError("");
         }, 3000);
       });
-  }, [email, password]);
+  }, [email, password, phone, userId, username]);
 
   //   login Function
   const signIn = useCallback(() => {
@@ -153,7 +153,6 @@ export const DataProvider = ({ children }) => {
         user,
         username,
         phone,
-        error,
         loginError,
         signUpError,
         signed,
@@ -163,6 +162,7 @@ export const DataProvider = ({ children }) => {
         LoginLoading,
         SignUpLoading,
         allUsers,
+        LoadError,
         setEmail,
         setPhone,
         setUsername,
