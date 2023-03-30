@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { database, reference } from "../firebaeConfig";
-import { ref, child, get, set, serverTimestamp } from "firebase/database";
+import {
+  ref,
+  child,
+  get,
+  set,
+  serverTimestamp,
+  update,
+} from "firebase/database";
 import { useLoaderData } from "react-router-dom";
 import NavChatScreen from "../components/NavChatScreen";
 import TextArea from "../components/TextArea";
@@ -14,6 +21,7 @@ function ChatScreen() {
 
   const [senderMessage, setSenderMessage] = useState();
   const [senderText, setSenderText] = useState(" ");
+  const [lastmessage, setLastMessage] = useState("");
 
   const messageID = uuidv4();
 
@@ -44,12 +52,26 @@ function ChatScreen() {
       time: serverTimestamp(),
     })
       .then(() => {
+        setLastMessage(senderText);
         console.log("sent");
+        update(reference(database, "messages/lastmessage/"), {
+          senderID: id,
+          receiver: id2,
+          messageID: messageID,
+          lastMessage: senderText,
+          time: serverTimestamp(),
+        })
+          .then(console.log("saved"))
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  // Getting messages from the db
   useEffect(() => {
     const dbRef = ref(database);
     get(child(dbRef, `messages`))

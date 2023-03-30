@@ -42,7 +42,7 @@ function Login() {
     await signed;
     setTimeout(() => {
       // 👇 Redirects to about page, note the `replace: true`
-      navigate(`/chats/${loginUserId}`, { replace: false });
+      navigate(`/chats/${loginUserId}`, { replace: true });
     });
   }
 

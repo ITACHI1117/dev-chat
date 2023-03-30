@@ -13,8 +13,8 @@ function ProfilePic() {
     await profileImg;
     setTimeout(() => {
       // 👇 Redirects to about page, note the `replace: true`
-      navigate(`/login`, { replace: false });
-    });
+      navigate(`/login`, { replace: true });
+    }, 2000);
   }
 
   if (profileImg) {
@@ -54,13 +54,6 @@ function ProfilePic() {
           <button id="loginBtn" onClick={() => upload()}>
             New Pic
           </button>
-          {upload ? (
-            <Link className="link" to="/login">
-              <button className="button2">Login</button>
-            </Link>
-          ) : (
-            ""
-          )}
         </div>
       </div>
     </div>
