@@ -41,10 +41,12 @@ function Login() {
   async function redirect() {
     await signed;
     setTimeout(() => {
-      // 👇 Redirects to about page, note the `replace: true`
+      // 👇 Redirects to about page, note the replace the screen not just push `replace: true`
       navigate(`/chats/${loginUserId}`, { replace: true });
     });
   }
+
+  // console.log(loginUserId);
 
   if (loginUserId !== undefined) {
     redirect();
@@ -70,9 +72,10 @@ function Login() {
         <h3>Your Profile</h3>
       </nav>
       <div className="profile">
-        <div className="profileImgContain1">
+        {/* replace with logo */}
+        {/* <div className="profileImgContain1">
           <img src={profilePic ? profilePic : images} alt="" />
-        </div>
+        </div> */}
         <form>
           <input
             type={"text"}

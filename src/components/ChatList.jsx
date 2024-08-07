@@ -11,7 +11,15 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
       navigate(`/chatScreen/${userIdentify}/${id}`, { replace: false });
     });
   }
+  // UsersList.map((item) =>{
+  //   console.log(item.chats);
+  //   const chats = item.chats
 
+  // })
+  console.log(UsersList);
+  
+  // console.log(userIdentify);
+  
   return (
     <div className="chatList">
       {UsersList === undefined ? (
@@ -34,7 +42,7 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
           </div>
         </div>
       ) : (
-        UsersList.map(({ connections, id, username, profile_picture }) => {
+        UsersList.map(({ connections, chats, id, username, profile_picture }) => {
           // removing the logged in user info from the chat list
           if (userIdentify === id) {
             return null;
@@ -46,7 +54,7 @@ function ChatList({ UsersList, LoadError, userIdentify }) {
                   <img className="chatImage" src={profile_picture} alt="" />
                   <div className="nameText">
                     <h3>{username}</h3>
-                    <p></p>
+                   
                   </div>
                 </div>
                 <div className="dateText">

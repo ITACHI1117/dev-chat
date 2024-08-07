@@ -36,7 +36,7 @@ function ChatHome() {
         console.error(error);
         setLoadError(error);
       });
-  }, [allUsers]);
+  }, []);
 
   useEffect(() => {
     const myConnectionsRef = ref(database, `users/${userIdentify}/connections`);
@@ -61,7 +61,10 @@ function ChatHome() {
         onDisconnect(lastOnlineRef).set(serverTimestamp());
       }
     });
-  }, [userIdentify]);
+  }, []);  
+
+  
+  
 
   return (
     <div className="noScroll">

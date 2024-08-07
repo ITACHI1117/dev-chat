@@ -48,7 +48,7 @@ body {
   margin-bottom: 10px;
 }
 .btn2 {
-  width: 90%;
+  width: 30%;
   font-size: 13px;
   border: none;
   height: 40px;
@@ -56,6 +56,7 @@ body {
   border-radius: 30px;
   background-color: #002de3;
   cursor: pointer;
+  margin-bottom: 30px;
 }
 .link {
   width: 100%;
@@ -64,6 +65,7 @@ body {
 .nav1 {
   padding: 15px;
   display: flex;
+  height: 16px;
   align-items: center;
   text-align: center;
 }
@@ -465,15 +467,22 @@ small {
   padding-right: 50px;
   outline: none;
 }
+.no-scroll {
+  overflow: hidden;
+}
 .chatArea {
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
-  padding-top: 10px;
-  padding-bottom: 70px;
+  padding-bottom: 100px;
+  padding-top: 100px;
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   background-color: #e2e2e2;
+}
+.messagesContainer{
+  padding-top:150px;
+  /* padding-bottom: 100px; */
 }
 .columnNormal {
   display: flex;
@@ -484,7 +493,6 @@ small {
   align-items: flex-start;
   justify-content: flex-start;
   text-align: start;
-
   width: unset;
 }
 
@@ -513,17 +521,23 @@ small {
   margin-bottom: 10px;
 }
 
-.chatBoxReciver {
+.chatBoxReceiver {
   margin-left: 15px;
   margin-right: 15px;
   padding: 15px;
   color: white;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: flex-start;
+  justify-content: flex-start;
   border-radius: 10px 10px 0px 10px;
   background-color: #002de3;
   margin-bottom: 10px;
+}
+.chatTime{
+  width: '100%';
+  /* position: absolute; */
+  font-size: 10px;
+  bottom: 0px;
 }
 
 .story1 {

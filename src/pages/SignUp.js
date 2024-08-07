@@ -30,7 +30,7 @@ function SignUp() {
       navigate(`/profile`, { replace: false });
     });
   }
-
+  
   if (user) {
     redirect();
   }
@@ -40,7 +40,7 @@ function SignUp() {
       <nav className="nav1">
         <Link to="/">
           <svg
-            width="10"
+            width="19"
             height="19"
             viewBox="0 0 8 14"
             fill="none"
@@ -55,7 +55,8 @@ function SignUp() {
         <h3>Your Profile</h3>
       </nav>
       <div className="profile">
-        <img src={images} alt="" />
+        {/* Rreplace with logo   */}
+        {/* <img src={images} alt="" /> */}
         <form>
           <input
             type={"text"}

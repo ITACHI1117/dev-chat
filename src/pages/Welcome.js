@@ -12,7 +12,7 @@ function Welcome() {
       </h2>
       <div className="buttons">
         <button className="btn1">Terms & Privacy Policy</button>
-        <Link className="link" to="/signUp">
+        <Link className="link" to="/login">
           <button className="btn2">Start</button>
         </Link>
       </div>
